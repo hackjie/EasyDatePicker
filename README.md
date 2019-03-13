@@ -18,7 +18,7 @@ func clearSeparatorLine() {
 and
 
 ```
-// add new view to highlight selected cell
+// add another view to highlight selected cell
 lazy var showSelectedView: UIView = {
     let view = UIView()
     view.backgroundColor = UIColor.red
