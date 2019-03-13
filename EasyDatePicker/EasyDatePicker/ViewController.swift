@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let rect = CGRect(x: 40, y: 100, width: 200, height: 180)
+        let rect = CGRect(x: 40, y: 100, width: 300, height: 180)
         let datePicker = EasyDatePicker(frame: rect)
         view.addSubview(datePicker)
     }

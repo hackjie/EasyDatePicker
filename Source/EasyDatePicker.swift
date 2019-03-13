@@ -21,6 +21,7 @@ class EasyDatePicker: UIView {
     
     lazy var showSelectedView: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor.red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -29,7 +30,7 @@ class EasyDatePicker: UIView {
     var selectMonthIndex: Int = 0
     var selectDayIndex: Int = 0
     
-    /// 代表今天，不要变更这三个值
+    /// present today, not change them
     var currentYear: Int = 0
     var currentMonth: Int = 0
     var currentDay: Int = 0
@@ -42,14 +43,20 @@ class EasyDatePicker: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.translatesAutoresizingMaskIntoConstraints = false
+        setupSubViews()
+        setupInitData()
+    }
+    
+    func setupSubViews() {
         self.addSubview(datePicker)
         let topConstraint = NSLayoutConstraint(item: datePicker, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
         let leftConstraint = NSLayoutConstraint(item: datePicker, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
         let bottomConstraint = NSLayoutConstraint(item: datePicker, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         let rightConstraint = NSLayoutConstraint(item: datePicker, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         self.addConstraints([topConstraint, leftConstraint, bottomConstraint, rightConstraint])
-        
+    }
+    
+    func setupInitData() {
         currentYear = Date().year()
         currentMonth = Date().month()
         currentDay = Date().day()
@@ -141,15 +148,14 @@ extension EasyDatePicker: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if component == 0 {
-            /// 记录当前选中的年份
             let year = years[row]
             selectYearIndex = row
             
-            // 前
+            // before
             let notChangedMonth = months[selectMonthIndex]
             let notChangedDay = days[selectDayIndex]
             
-            // 后
+            // after
             months = getMonthsOfYear(year)
             days = getDaysOfYear(year, and: notChangedMonth)
             
